@@ -18,5 +18,14 @@ export class ProductListComponent implements OnInit {
       .getProducts()
       .then(r => this.products = r.products)
       .catch(err => console.log("ERRORE NEL RECUPERO DEI PRODOTTI"));
+
+    this.products.filter(f => f.title == this.productsService.ricerca)
+  }
+
+  filterProduct() {
+    if (this.productsService.ricerca != "")
+      return this.products.filter(x => x.title == this.productsService.ricerca);
+    else
+      return this.products;
   }
 }

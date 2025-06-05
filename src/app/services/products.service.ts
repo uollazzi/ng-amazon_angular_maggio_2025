@@ -6,6 +6,8 @@ import { ProductsResponse } from '../models/product';
 })
 export class ProductsService {
 
+  ricerca: string = "";
+
   constructor() { }
 
   async getProducts() {
@@ -13,5 +15,10 @@ export class ProductsService {
     const data: ProductsResponse = await response.json();
     // console.log(data);
     return data;
+  }
+
+  aggiornaStringRicerca(r: string) {
+    console.log("NUOVA RICERCA:", r);
+    this.ricerca = r;
   }
 }

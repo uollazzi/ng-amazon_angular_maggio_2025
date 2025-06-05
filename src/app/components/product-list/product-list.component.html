@@ -1,7 +1,6 @@
 <!-- <pre>
   {{ products | json }}
 </pre> -->
-@for (p of products; track $index) {
-
+@for (p of filterProduct(); track $index) {
 <div>{{ p.title }}</div>
 }
