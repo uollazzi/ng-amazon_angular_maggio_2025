@@ -14,6 +14,5 @@ export class SearchBarComponent {
 
   eseguiRicerca() {
     this.productsService.aggiornaStringRicerca(this.stringaRicerca);
-
   }
 }
