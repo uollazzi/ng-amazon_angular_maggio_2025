@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductsResponse } from '../models/product';
+import { Product, ProductsResponse } from '../models/product';
 import { Category } from '../models/category';
 
 @Injectable({
@@ -14,6 +14,13 @@ export class ProductsService {
   async getProducts() {
     const response = await fetch("https://dummyjson.com/products");
     const data: ProductsResponse = await response.json();
+
+    return data;
+  }
+
+  async getProductById(id: string) {
+    const response = await fetch(`https://dummyjson.com/products/${id}`);
+    const data: Product = await response.json();
 
     return data;
   }
