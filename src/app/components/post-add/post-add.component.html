@@ -1,0 +1,43 @@
+<form (ngSubmit)="aggiungiPost()" #laForm="ngForm">
+  <div class="mb-3">
+    <label for="title" class="form-label">Titolo</label>
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="model.title"
+      name="title"
+      id="title"
+      required
+      #inputTitle="ngModel"
+      [ngClass]="{ 'is-invalid': inputTitle.invalid && inputTitle.dirty }"
+    />
+    @if(inputTitle.invalid && inputTitle.dirty) {
+    <div style="color: red">Titolo obbligatorio</div>
+    }
+  </div>
+  <div class="mb-3">
+    <label for="body" class="form-label">Testo</label>
+    <textarea
+      class="form-control"
+      [(ngModel)]="model.body"
+      name="body"
+      id="body"
+      #inputBody="ngModel"
+      required
+      minlength="3"
+    ></textarea>
+    @if(inputBody.invalid) {
+    <div style="color: red">Testo obbligatorio</div>
+    }
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!laForm.valid">
+    Salva
+  </button>
+</form>
+<!-- <pre>
+  {{ laForm.valid }}
+
+</pre> -->
+@if (!laForm.valid) {
+<div>Form non valida</div>
+}
