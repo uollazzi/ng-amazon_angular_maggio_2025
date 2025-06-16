@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
-import { Product } from '../../models/product';
+import { Product, ProductsResponse } from '../../models/product';
 import { RouterModule } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -15,10 +16,20 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
 
   ngOnInit(): void {
+    // this.productsService
+    //   .getProducts()
+    //   .then(r => this.products = r.products)
+    //   .catch(err => console.log("ERRORE NEL RECUPERO DEI PRODOTTI"));
+
     this.productsService
-      .getProducts()
-      .then(r => this.products = r.products)
-      .catch(err => console.log("ERRORE NEL RECUPERO DEI PRODOTTI"));
+      .getProductsObservable()
+      .pipe(
+        catchError(err => {
+          console.log("ERRORE NEL RECUPERO DEI PRODOTTI", err);
+          return of(undefined);
+        })
+      )
+      .subscribe(r => this.products = r != undefined ? r.products : []);
   }
 
   filteredProducts() {
